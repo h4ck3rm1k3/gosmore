@@ -82,8 +82,10 @@ translations.c: extract
 extract:	extract.c
 		${CC} ${CFLAGS} ${XMLFLAGS} extract.c -o extract
 
-jni/bboxes.c:	density.c density.txt
-		gcc density.c -lm -o density
+density : density.c
+	gcc density.c -lm -o density
+
+jni/bboxes.c:	density density.txt
 		./density <density.txt >density.sh
 # wget http://www.openstreetmap.org/api/0.6/changeset/1707270/download -O \
 #   countries.osm
